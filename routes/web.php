@@ -15,4 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin', 'Admins\AdminController@index');
+Route::get('/admin/signin', 'Admins\AdminController@getSignin')->name('AdminGetSignin');
+
+Route::post('/admin/signin', 'Admins\AdminController@postSignin')->name('AdminPostSignin');
+
+Route::get('/admin/signup', 'Admins\AdminController@getSignup')->name('AdminGetSignup');
+
+Route::post('/admin/signup', 'Admins\AdminController@postSignup')->name('AdminPostSignup');

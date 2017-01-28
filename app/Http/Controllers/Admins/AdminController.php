@@ -7,7 +7,19 @@ use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
 {
-    public function index() {
-      return view('admins.login');
+    public function getSignin() {
+      return view('admins.signin');
+    }
+
+    public function postSignin(Request $request) {
+
+    }
+
+    public function getSignup() {
+      return view('admins.signup');
+    }
+
+    public function postSignup(Request $request) {
+
     }
 }

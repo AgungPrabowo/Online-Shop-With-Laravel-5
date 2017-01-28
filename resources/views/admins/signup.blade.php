@@ -1,21 +1,21 @@
 @extends('admins.layouts.master')
 
-@section('Login Admin','title')
+@section('Create User','title')
 
 @section('content')
-  <div class="row" style="background:red;">
+  <div class="row">
     <div class="col-md-4 col-md-offset-4">
-      <h1>Login Admin</h1>
-      <form action="#" method="post">
+      <h1>Create User</h1>
+      <form action="{{route('AdminPostSignup')}}" methd="post">
         <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" name="username" class="form-control" required>
+          <label for="email">Email</label>
+          <input type="email" name="email" class="form-control" required>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
           <input type="password" name="password" class="form-control" required>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn btn-primary">Create</button>
       </form>
     </div>
   </div>
