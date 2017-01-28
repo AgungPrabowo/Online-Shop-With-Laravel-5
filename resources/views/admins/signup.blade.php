@@ -6,7 +6,15 @@
   <div class="row">
     <div class="col-md-4 col-md-offset-4">
       <h1>Create User</h1>
-      <form action="{{route('AdminPostSignup')}}" methd="post">
+      @if(count($errors) > 0)
+        <div class="alert alert-danger">
+          @foreach($errors->all() as $error)
+            <p>{{$error}}</p>
+          @endforeach
+        </div>
+      @endif
+      <form action="{{route('AdminPostSignup')}}" method="post">
+        {{csrf_field()}}
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" name="email" class="form-control" required>
