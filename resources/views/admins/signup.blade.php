@@ -1,6 +1,6 @@
 @extends('admins.layouts.master')
 
-@section('Create User','title')
+@section('title','Create User')
 
 @section('content')
   <div class="row">
@@ -16,8 +16,12 @@
       <form action="{{route('AdminPostSignup')}}" method="post">
         {{csrf_field()}}
         <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" name="username" class="form-control" value="{{old('username')}}" required>
+        </div>
+        <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" name="email" class="form-control" required>
+          <input type="email" name="email" class="form-control" value="{{old('email')}}" required>
         </div>
         <div class="form-group">
           <label for="password">Password</label>

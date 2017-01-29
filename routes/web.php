@@ -15,10 +15,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/signin', 'Admins\AdminController@getSignin')->name('AdminGetSignin');
 
-Route::post('/admin/signin', 'Admins\AdminController@postSignin')->name('AdminPostSignin');
 
-Route::get('/admin/signup', 'Admins\AdminController@getSignup')->name('AdminGetSignup');
+Route::group(['prefix' => 'admin'], function() {
 
-Route::post('/admin/signup', 'Admins\AdminController@postSignup')->name('AdminPostSignup');
+	Route::group(['middleware' => 'guest'], function() {
+		Route::get('/signin', 'Admins\AdminController@getSignin')->name('AdminGetSignin');
+		Route::post('/signin', 'Admins\AdminController@postSignin')->name('AdminPostSignin');
+		Route::get('/signup', 'Admins\AdminController@getSignup')->name('AdminGetSignup');
+		Route::post('/signup', 'Admins\AdminController@postSignup')->name('AdminPostSignup');
+	});
+
+	Route::group(['middleware' => 'auth'], function() {
+		Route::get('/logout', 'Admins\AdminController@getLogout')->name('AdminGetLogout');
+		Route::get('/home', 'Admins\AdminController@getHome')->name('AdminGetHome');
+	});
+
+});
