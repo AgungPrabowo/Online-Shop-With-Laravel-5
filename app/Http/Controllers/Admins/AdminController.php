@@ -21,7 +21,7 @@ class AdminController extends Controller
       ]);
 
       if(Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])){
-        return view('admins.home');
+        return redirect()->route('AdminGetHome');
       }
       // menampilkan notif kesalahan
       $request->session()->flash('status','Email atau Password Salah');
@@ -55,7 +55,7 @@ class AdminController extends Controller
 
     public function getLogout() {
       Auth::logout();
-      return redirect()->back();
+      return redirect()->route('AdminGetSignin');
     }
 
     public function getHome() {

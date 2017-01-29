@@ -29,6 +29,7 @@ Route::group(['prefix' => 'admin'], function() {
 	Route::group(['middleware' => 'auth'], function() {
 		Route::get('/logout', 'Admins\AdminController@getLogout')->name('AdminGetLogout');
 		Route::get('/home', 'Admins\AdminController@getHome')->name('AdminGetHome');
+		Route::resource('kategori','Admins\KategoriController');
 	});
 
 });
