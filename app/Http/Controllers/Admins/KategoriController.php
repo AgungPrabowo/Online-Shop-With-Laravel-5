@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Kategori;
 
 class KategoriController extends Controller
 {
@@ -14,7 +15,8 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        return view('admins.kategori.index');
+        $kategoris = Kategori::all();
+        return view('admins.kategori.index', ['kategoris' => $kategoris, 'i' => $i=1]);
     }
 
     /**
@@ -24,7 +26,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        //
+        return view('admins.kategori.create');
     }
 
     /**
@@ -35,7 +37,15 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validasi data
+        $this->validate($request, [
+            'name' => 'required|unique:kategoris'
+        ]);
+
+        // create data
+        Kategori::create($request->all());
+
+        return redirect()->route('kategori.index');
     }
 
     /**
@@ -80,6 +90,7 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Kategori::find($id)->delete();
+        return redirect()->route('kategori.index');
     }
 }
