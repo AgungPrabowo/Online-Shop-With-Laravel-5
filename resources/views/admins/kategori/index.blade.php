@@ -21,8 +21,10 @@
 						<th scope="row">{{$i++}}</th>
 						<td>{{$kategori->name}}</td>
 						<td>
-							<a href="{{route('kategori.edit', $kategori->id)}}">Update</a>
-							<a href="{{route('kategori.destroy', $kategori->id)}}">Delete</a>
+							<a href="{{route('kategori.edit', $kategori->id)}}" class="btn btn-primary">Update</a>
+				          	{!! Form::open(['method' => 'DELETE','route' => ['kategori.destroy', $kategori->id], 'style' => 'display:inline']) !!}
+				          	{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+				          	{!! Form::close() !!}
 						</td>
 					</tr>
 					@endforeach
