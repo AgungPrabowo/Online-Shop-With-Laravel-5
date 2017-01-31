@@ -67,7 +67,8 @@ class KategoriController extends Controller
      */
     public function edit($id)
     {
-        //
+        $kategori = Kategori::find($id);
+        return view('admins.kategori.update', compact('kategori'));
     }
 
     /**
@@ -79,7 +80,10 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, ['name' => 'required|unique:kategoris']);
+
+        Kategori::find($id)->update($request->all());
+        return redirect()->route('kategori.index');
     }
 
     /**
