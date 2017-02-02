@@ -7,6 +7,7 @@
 	<div class="row">
 		<div class="col-md-4 col-md-offset-4">
 			<h1>Kategori</h1>
+			<a href="{{ route('kategori.create') }}" class="btn btn-success pull-right">Add Kategori</a>
 			<table class="table table-striped">
 				<thead>
 					<tr>
