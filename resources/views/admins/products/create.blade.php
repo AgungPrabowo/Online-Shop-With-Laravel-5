@@ -7,18 +7,21 @@
 <div class="row">
 	<div class="col-md-4 col-md-offset-4">
 		<h1>Create Product</h1>
+		@if(count($errors) > 0)
+			<div class="alert alert-danger">
+				@foreach($errors->all() as $error)
+				<p>{{$error}}</p>
+				@endforeach
+			</div>
+		@endif
+		{!!Form::open(['route' => 'product.store','method' => 'post','files' => true])!!}
 		<div class="form-group">
 			<label for="name">Name</label>
 			<input type="text" name="name" value="{{old('name')}}" class="form-control" placeholder="Title Product" required>
 		</div>
 		<div class="form-group">
-			<label for="kategoris">Kategoris</label>
-			<select name="kategoris" class="form-control">
-				<option value="0">---Select---</option>
-				@foreach($kategoris as $kategori)
-				<option value="{{$kategori->id}}">{{$kategori->name}}</option>
-				@endforeach
-			</select>
+			<label for="kategoris">Kategori</label>
+			{{Form::select('kategori', $rowKategori, null, ['class' => 'form-control', 'placeholder' => 'Select'])}}
 		</div>
 		<div class="form-group">
 			<label for="price">Price</label>
@@ -30,7 +33,7 @@
 		</div>
 		<div class="form-group">
 			<label for="images">Images</label>
-			<input type="file" name="images" class="form-control">
+			<input type="file" name="images" class="form-control" accept="image/*">
 		</div>
 		<div class="form-group">
 			<label for="stock">Stock</label>
@@ -39,6 +42,7 @@
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary">Create</button>
 		</div>
+		{!!Form::close()!!}
 	</div>
 </div>
 
