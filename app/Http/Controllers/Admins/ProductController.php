@@ -18,7 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admins.products.index');
+        $products = new Product;
+        return view('admins.products.index', compact('products'),['i' => 1]);
     }
 
     /**
@@ -64,11 +65,11 @@ class ProductController extends Controller
         $product->name = $request->input('name');
         $product->price = $request->input('price');
         $product->description = $request->input('description');
-        $product->images = $file->getFilename().'.'.$extension;
+        $product->images = $file->getClientOriginalName();
         $product->stock = $request->input('stock');
         
         // move file
-        Storage::disk('public')->put($file->getFilename().'.'.$extension, File::get($file));
+        Storage::disk('public')->put($file->getClientOriginalName(), File::get($file));
 
         // save entry
         $product->save();
@@ -84,7 +85,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admins.products.show');
     }
 
     /**
