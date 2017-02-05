@@ -51,7 +51,7 @@ class ProductController extends Controller
 
         // validasi data
         $this->validate($request, [
-            'name' => 'required:unique:products',
+            'name' => 'required',
             'kategori' => 'required',
             'price' => 'required|numeric',
             'description' => 'required',
@@ -61,7 +61,7 @@ class ProductController extends Controller
 
         // entry product
         $product = new Product();
-        $product->kategoris_id = $request->input('kategori');
+        $product->kategori_id = $request->input('kategori');
         $product->name = $request->input('name');
         $product->price = $request->input('price');
         $product->description = $request->input('description');
@@ -85,7 +85,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return view('admins.products.show');
+        $product = Product::find($id);
+        return view('admins.products.show', compact('product'));
     }
 
     /**
