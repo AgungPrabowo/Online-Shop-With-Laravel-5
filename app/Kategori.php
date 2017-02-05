@@ -8,4 +8,5 @@ class Kategori extends Model
 {
     // whitelist
     protected $fillable = ['name'];
+
 }
