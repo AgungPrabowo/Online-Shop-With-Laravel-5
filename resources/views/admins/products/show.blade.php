@@ -10,7 +10,7 @@
 		<li>{{$product->kategori->name}}</li>
 		<li>{{$product->price}}</li>
 		<li>{{$product->description}}</li>
-		<li><img src="" alt=""></li>
+		<li><img src="{{route('ImageProduct', $product->images)}}" alt=""></li>
 		<li>{{$product->stock}}</li>
 	</div>
 </div>

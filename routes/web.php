@@ -15,7 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('/images/product/{image}', function($image){
+	$image = Storage::get('/public/'.$image);
+	return response($image, 200)->header('Content-Type', 'image/jpeg');
+})->name('ImageProduct');
 
 Route::group(['prefix' => 'admin'], function() {
 

@@ -11,6 +11,16 @@ use App\Product;
 
 class ProductController extends Controller
 {
+
+    public function optKategoris()
+    {
+        foreach(Kategori::all() as $kategori)
+        {
+            $rowKategori[$kategori->id] = $kategori->name;
+        }
+
+        return $rowKategori;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +57,6 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $file = $request->file('images');
-        $extension = $file->getClientOriginalExtension();
 
         // validasi data
         $this->validate($request, [
@@ -86,7 +95,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        return view('admins.products.show', compact('product'));
+        return view('admins.products.show', compact('product','images'));
     }
 
     /**
@@ -97,7 +106,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        $kategoris = $this->optKategoris();
+        return view('admins.products.edit', compact('product','kategoris'));
     }
 
     /**
@@ -109,7 +120,43 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $image = $request->file('image');
+        $product = Product::find($id);
+
+        $this->validate($request, [
+            'name' => 'required',
+            'kategori_id' => 'required',
+            'price' => 'required|numeric',
+            'description' => 'required',
+            'stock' =>'required|numeric'
+        ]);
+
+        // if changing image
+        if($image)
+        {
+            // validasi image
+            $this->validate($request, ['images' => 'mime:jpeg,png']);
+
+            $product->kategori_id = $request->input('kategori_id');
+            $product->name = $request->input('name');
+            $product->price = $request->input('price');
+            $product->description = $request->input('description');
+            $product->images = $image->getCLientOriginalName();
+            $product->stock = $request->input('stock');
+
+            // move image
+            Storage::disk('public')->put($image->getClientOriginalName(), File::get($image));
+
+            // save entry
+            $product->save();
+
+            return redirect()->route('product.index');
+        }
+
+        // if image not change
+        $product->update($request->all());
+        return redirect()->route('product.index');
+
     }
 
     /**
