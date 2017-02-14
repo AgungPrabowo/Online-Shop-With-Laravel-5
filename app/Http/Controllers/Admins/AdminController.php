@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Auth;
+use Sentinel;
 
 class AdminController extends Controller
 {
@@ -54,7 +55,7 @@ class AdminController extends Controller
     }
 
     public function getLogout() {
-      Auth::logout();
+      Sentinel::logout();
       return redirect()->route('AdminGetSignin');
     }
 
