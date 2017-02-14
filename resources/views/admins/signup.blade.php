@@ -16,12 +16,16 @@
       <form action="{{route('AdminPostSignup')}}" method="post">
         {{csrf_field()}}
         <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" name="username" class="form-control" value="{{old('username')}}" required>
-        </div>
-        <div class="form-group">
           <label for="email">Email</label>
           <input type="email" name="email" class="form-control" value="{{old('email')}}" required>
+        </div>
+        <div class="form-group">
+          <label for="first_name">First Name</label>
+          <input type="text" name="first_name" class="form-control" value="{{old('first_name')}}" required>
+        </div>
+        <div class="form-group">
+          <label for="last_name">Last Name</label>
+          <input type="text" name="last_name" class="form-control" value="{{old('last_name')}}" required>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
